@@ -195,11 +195,6 @@ public class ReservationAddView implements ActionListener, KeyListener
 		btnConfirm.setBounds(10, 393, 150, 39);
 		panel.add(btnConfirm);
 		
-		
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(170, 394, 150, 39);
-		panel.add(btnCancel);
 		btnConfirm.addActionListener(this);
 		
 		
@@ -211,6 +206,11 @@ public class ReservationAddView implements ActionListener, KeyListener
         textField_5.addKeyListener(this);
         textField_6.addKeyListener(this);
         textField_7.addKeyListener(this);
+		
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(170, 394, 150, 39);
+		panel.add(btnCancel);
 		
 		
 		
@@ -245,6 +245,7 @@ public class ReservationAddView implements ActionListener, KeyListener
             System.out.println("Confirm button pressed");
             
             FacilityReservation newReservation = new FacilityReservation();
+            
             // Retrieve text from text fields
             newReservation.setFacilityId(textField.getText());
             newReservation.setCustomerId(textField_1.getText());

@@ -33,6 +33,7 @@ public class PaymentAddView {
 	 */
 	public PaymentAddView() {
 		initialize();
+		frmNewPaymentPage.setVisible(true);
 	}
 
 	/**
