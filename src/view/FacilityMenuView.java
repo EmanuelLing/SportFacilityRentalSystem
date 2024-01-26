@@ -36,6 +36,7 @@ public class FacilityMenuView {
 	 */
 	public FacilityMenuView() {
 		initialize();
+		frmFacilitiesPage.setVisible(true);
 	}
 
 	/**

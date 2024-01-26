@@ -1,36 +1,70 @@
 package view;
 
 import javax.swing.JFrame;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
-import model.FacilityReservation;
+import model.Reservation;
+import model.Staff;
+import model.Customer;
+import model.SportFacility;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Date;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import controller.CustomerController;
+import java.util.Iterator;
+import controller.SportFacilityController;
+import java.util.List;
+import controller.ReservationController;
 
 
-public class ReservationAddView implements ActionListener, KeyListener
+public class ReservationAddView extends JFrame
 {
 
 	private JFrame frmNewReservationPage;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JComboBox<String> sportFacilityComboBox;
+	private JComboBox<String> customerComboBox;
+	private JSpinner reservationIdSpinner;
+	private JSpinner dateSpinner;
+	private JSpinner startTimeSpinner;
+	private JSpinner endTimeSpinner;
+	private JTextField staffTextField;
+	private JSpinner paymentIdSpinner;
 	
 	private JButton btnConfirm;
 	private JButton btnCancel;
 	private JButton btnPay;
+	
+	private Reservation reservation;
+	private SportFacilityController sportFacilityController;
 	/**
 	 * Launch the application.
 	 */
@@ -39,20 +73,22 @@ public class ReservationAddView implements ActionListener, KeyListener
 	/**
 	 * Create the application.
 	 */
-	public ReservationAddView() {
-		initialize();
+	public ReservationAddView(Staff staff) {
+		initialize(staff);
 		frmNewReservationPage.setVisible(true);
 	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	public void initialize() 
+	public void initialize(Staff staff) 
 	{
 		frmNewReservationPage = new JFrame();
 		frmNewReservationPage.setTitle("NEW RESERVATION PAGE");
 		frmNewReservationPage.getContentPane().setBackground(Color.DARK_GRAY);
 		frmNewReservationPage.getContentPane().setLayout(null);
+		frmNewReservationPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmNewReservationPage.setBounds(100, 100, 868, 497);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -70,10 +106,27 @@ public class ReservationAddView implements ActionListener, KeyListener
 		lblFacilityReference.setBounds(10, 10, 197, 34);
 		panel_1.add(lblFacilityReference);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 75, 378, 34);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		DefaultComboBoxModel<String> facilityToString = new DefaultComboBoxModel<>();
+		sportFacilityController = new SportFacilityController();
+		try {	
+			ArrayList<SportFacility> sportFacilities = sportFacilityController.ListoutSportFacility();
+			for (SportFacility s : sportFacilities)
+			{
+				facilityToString.addElement(s.getFacilityId() + " - " + s.getFacilityName() + 
+						" - RM" + s.getRentalCost() + " per hour");
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sportFacilityComboBox = new JComboBox(facilityToString);
+		sportFacilityComboBox.setBounds(10, 75, 378, 34);
+		panel_1.add(sportFacilityComboBox);
+		//comboBox.setColumns(10);
 		
 		JLabel lblFacilityName = new JLabel("Facility ID:");
 		lblFacilityName.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -95,10 +148,27 @@ public class ReservationAddView implements ActionListener, KeyListener
 		lblFacilityName_1.setBounds(10, 38, 197, 34);
 		panel_2.add(lblFacilityName_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 75, 378, 34);
-		panel_2.add(textField_1);
+		DefaultComboBoxModel<String> customerToString = new DefaultComboBoxModel<>();
+		CustomerController customerController = new CustomerController();
+		try {
+			ArrayList<Customer> customers = customerController.ListoutCustomer();
+			
+			for (Customer c : customers)
+			{
+				customerToString.addElement(c.getCustomerId() + " - " + c.getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		customerComboBox = new JComboBox<>(customerToString);
+		//jList_1.setColumns(10);
+		customerComboBox.setBounds(10, 75, 378, 34);
+		panel_2.add(customerComboBox);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 139, 556, 245);
@@ -110,10 +180,10 @@ public class ReservationAddView implements ActionListener, KeyListener
 		lblReservationDetails.setBounds(10, 10, 197, 34);
 		panel_3.add(lblReservationDetails);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(155, 57, 391, 33);
-		panel_3.add(textField_2);
+		SpinnerModel idModel = new SpinnerNumberModel(1, 1, 999, 1);
+		reservationIdSpinner = new JSpinner(idModel);
+		reservationIdSpinner.setBounds(155, 57, 96, 33);
+		panel_3.add(reservationIdSpinner);
 		
 		JLabel lblReservationId = new JLabel("Reservation ID:");
 		lblReservationId.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -125,40 +195,57 @@ public class ReservationAddView implements ActionListener, KeyListener
 		lblDate.setBounds(10, 100, 197, 34);
 		panel_3.add(lblDate);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(155, 100, 224, 33);
-		panel_3.add(textField_3);
+        // Create a SpinnerDateModel
+        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH);
+        dateSpinner = new JSpinner(dateModel);
+
+        // Configure the date format
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+        dateSpinner.setEditor(dateEditor);
+        dateSpinner.setBounds(155, 100, 224, 33);
+        panel_3.add(dateSpinner);
 		
 		JLabel lblTime = new JLabel("Time:");
 		lblTime.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblTime.setBounds(10, 144, 197, 34);
 		panel_3.add(lblTime);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(155, 144, 96, 33);
-		panel_3.add(textField_4);
+        // Create a SpinnerDateModel for time values
+        SpinnerDateModel spinnerModel = new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY);
+
+		startTimeSpinner = new JSpinner(spinnerModel);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(283, 143, 96, 33);
-		panel_3.add(textField_5);
+        // Set a custom editor to display only the time portion
+        JSpinner.DateEditor startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "HH:mm");
+        startTimeSpinner.setEditor(startTimeEditor);
+		startTimeSpinner.setBounds(155, 144, 96, 33);
+		panel_3.add(startTimeSpinner);
 		
 		JLabel lblTo = new JLabel("to");
 		lblTo.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblTo.setBounds(261, 143, 197, 34);
 		panel_3.add(lblTo);
 		
+		spinnerModel = new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY);
+		endTimeSpinner = new JSpinner(spinnerModel);
+		
+        // Set a custom editor to display only the time portion
+        JSpinner.DateEditor endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "HH:mm");
+        endTimeSpinner.setEditor(endTimeEditor);
+		endTimeSpinner.setBounds(281, 144, 96, 33);
+		panel_3.add(endTimeSpinner);	
+		
 		JLabel lblStaffInCharge = new JLabel("Staff in charge:");
 		lblStaffInCharge.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblStaffInCharge.setBounds(10, 188, 197, 34);
 		panel_3.add(lblStaffInCharge);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(155, 188, 224, 33);
-		panel_3.add(textField_6);
+		staffTextField = new JTextField();
+		staffTextField.setColumns(10);
+		staffTextField.setBounds(155, 188, 224, 33);
+		panel_3.add(staffTextField);
+		staffTextField.setText(staff.getName());
+		staffTextField.setEditable(false);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(576, 139, 248, 245);
@@ -170,10 +257,10 @@ public class ReservationAddView implements ActionListener, KeyListener
 		lblPaymentDetails.setBounds(10, 10, 197, 34);
 		panel_4.add(lblPaymentDetails);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(10, 90, 228, 34);
-		panel_4.add(textField_7);
-		textField_7.setColumns(10);
+		idModel = new SpinnerNumberModel(1, 1, 999, 1);
+		paymentIdSpinner = new JSpinner(idModel);
+		paymentIdSpinner.setBounds(10, 90, 228, 34);
+		panel_4.add(paymentIdSpinner);
 		
 		JLabel lblPaymentId = new JLabel("Payment ID:");
 		lblPaymentId.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -183,99 +270,107 @@ public class ReservationAddView implements ActionListener, KeyListener
 		JButton btnPay = new JButton("Pay");
 		btnPay.setBounds(57, 196, 150, 39);
 		panel_4.add(btnPay);
+		btnPay.setEnabled(false);
 		btnPay.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				new PaymentAddView();
+				frmNewReservationPage.dispose();
+				
+				Object selectedValue = paymentIdSpinner.getValue();
+				String paymentId = String.valueOf(selectedValue);
+				new PaymentAddView(reservation, paymentId);
 			}
 		});
 		
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(10, 393, 150, 39);
 		panel.add(btnConfirm);
-		
-		btnConfirm.addActionListener(this);
-		
-		
-		textField.addKeyListener(this); // Register the KeyListener
-        textField_1.addKeyListener(this);
-        textField_2.addKeyListener(this);
-        textField_3.addKeyListener(this);
-        textField_4.addKeyListener(this);
-        textField_5.addKeyListener(this);
-        textField_6.addKeyListener(this);
-        textField_7.addKeyListener(this);
-		
+		btnConfirm.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{	
+				String[] parts;
+				reservation = new Reservation();
+				ReservationController reservationController = new ReservationController();
+				
+				reservation.setStaff(staff);
+				
+				Object selectedValue = reservationIdSpinner.getValue();
+				String reservationId = String.valueOf(selectedValue);
+				reservation.setReservationId(reservationId);
+				
+				String selectedFacility = (String) sportFacilityComboBox.getSelectedItem();
+				parts = selectedFacility.split("-");
+				String facilityId = parts[0].trim();
+				try {
+					ArrayList<SportFacility> sportFacilities = sportFacilityController.ListoutSportFacility();
+					for (SportFacility s : sportFacilities)
+					{
+						if (facilityId.equals(s.getFacilityId()))
+						{
+							reservation.setSportFacility(s);
+							break;
+						}
+					}
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				String selectedCustomer = (String) customerComboBox.getSelectedItem();
+				parts = selectedCustomer.split("-");
+				String customerId = parts[0].trim();
+				reservation.getCustomer().setCustomerId(customerId);
+				
+				Date selectedDate = (Date) dateSpinner.getValue();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		        String formattedDate = dateFormat.format(selectedDate);        
+				reservation.setReservationDate(formattedDate);
+				
+				Date startTime = (Date) startTimeSpinner.getValue();
+				SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				String formattedStartTime = timeFormat.format(startTime);	
+				reservation.setStartTime(formattedStartTime + ":00");
+				
+				Date endTime = (Date) endTimeSpinner.getValue();
+				String formattedEndTime = timeFormat.format(endTime);	
+				reservation.setEndTime(formattedEndTime + ":00");
+				
+				try {
+					reservationController.addReservation(reservation);
+					JOptionPane.showMessageDialog(null, "Add Reservation Success");
+					btnPay.setEnabled(true);
+					reservationIdSpinner.setEnabled(false);
+					sportFacilityComboBox.setEnabled(false);
+					customerComboBox.setEnabled(false);
+					dateSpinner.setEnabled(false);
+					startTimeSpinner.setEnabled(false);
+					endTimeSpinner.setEnabled(false);
+					btnConfirm.setEnabled(false);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 394, 150, 39);
 		panel.add(btnCancel);
-		
-		
-		
-		frmNewReservationPage.setBounds(100, 100, 868, 497);
-		frmNewReservationPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) //later change output to input into the database
-	{
-		if (e.getSource()== btnConfirm) 
+		btnCancel.addActionListener(new ActionListener() 
 		{
-            // Handle Confirm button action
-            System.out.println("Confirm button pressed");
-            
-            FacilityReservation newReservation = new FacilityReservation();
-            
-            // Retrieve text from text fields
-            newReservation.setFacilityId(textField.getText());
-            newReservation.setCustomerId(textField_1.getText());
-            newReservation.setReservationId(textField_2.getText());
-            newReservation.setDate(textField_3.getText());
-            newReservation.setStartTime(textField_4.getText());
-            newReservation.setEndTime(textField_5.getText());
-            newReservation.setStaffId(textField_6.getText());
-            newReservation.setPaymentId(textField_7.getText());
-            
-
-            // this is for testing..later remove
-            System.out.println("Facility ID: " + newReservation.getFacilityId());
-            System.out.println("Customer ID: " + newReservation.getCustomerId());
-            System.out.println("Reservation ID: " + newReservation.getReservationId());
-            System.out.println("Date: " + newReservation.getDate());
-            System.out.println("Start Time: " + newReservation.getStartTime());
-            System.out.println("End Time: " + newReservation.getEndTime());
-            System.out.println("Staff ID: " + newReservation.getStaffId());
-            System.out.println("Payment ID: " + newReservation.getPaymentId());
-        }
-		
-		if (e.getSource()== btnCancel)
-		{
-			System.out.println("action is cancel...going back"); //this part can be change to go back to menu etc..
-		}
-		
-		if (e.getSource()==btnPay)
-		{
-			System.out.println("Going to the pay module"); //this part change to go to the payment module menu etc..
-		}
+			public void actionPerformed(ActionEvent e) 
+			{			
+				frmNewReservationPage.dispose();
+				new MainMenuView(staff);
+			}
+		});
 	}
 }

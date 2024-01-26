@@ -1,4 +1,7 @@
 package view;
+
+import model.Staff;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,7 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 
-public class MainMenuView implements ActionListener, KeyListener 
+public class MainMenuView extends JFrame 
 {
 
 	private JFrame frmSfrsMenu;
@@ -24,7 +27,7 @@ public class MainMenuView implements ActionListener, KeyListener
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenuView window = new MainMenuView();
+					MainMenuView window = new MainMenuView(new Staff());
 					window.frmSfrsMenu.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,18 +39,22 @@ public class MainMenuView implements ActionListener, KeyListener
 	/**
 	 * Create the application.
 	 */
-	public MainMenuView() {
-		initialize();
+	
+	public MainMenuView(Staff staff) {
+		initialize(staff);
 		frmSfrsMenu.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Staff staff) {
 		frmSfrsMenu = new JFrame();
 		frmSfrsMenu.getContentPane().setBackground(Color.DARK_GRAY);
 		frmSfrsMenu.getContentPane().setLayout(null);
+		frmSfrsMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmSfrsMenu.setTitle("SFRS MENU");
+		frmSfrsMenu.setBounds(100, 100, 811, 389);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -66,7 +73,9 @@ public class MainMenuView implements ActionListener, KeyListener
 		btnNewButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
-			{}
+			{
+				new CustomerMenuView();
+			}
 		});
 		
 		JPanel panel_1_1 = new JPanel();
@@ -81,7 +90,7 @@ public class MainMenuView implements ActionListener, KeyListener
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				new ReservationMenuView();
+				new ReservationMenuView(staff);
 			}
 		});
 		
@@ -94,6 +103,13 @@ public class MainMenuView implements ActionListener, KeyListener
 		JButton btnFacilityStatus = new JButton("Facility Status / Update");
 		btnFacilityStatus.setBounds(10, 269, 153, 42);
 		panel_1_2.add(btnFacilityStatus);
+		btnFacilityStatus.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new FacilityView();
+			}
+		});
 		
 		JPanel panel_1_3 = new JPanel();
 		panel_1_3.setBounds(580, 10, 180, 321);
@@ -108,33 +124,5 @@ public class MainMenuView implements ActionListener, KeyListener
 		});
 		btnMonthlyReport.setBounds(10, 269, 153, 42);
 		panel_1_3.add(btnMonthlyReport);
-		frmSfrsMenu.setTitle("SFRS MENU");
-		frmSfrsMenu.setBounds(100, 100, 811, 389);
-		frmSfrsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
 	}
 }

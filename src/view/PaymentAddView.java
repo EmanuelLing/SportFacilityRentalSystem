@@ -5,45 +5,87 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
+import model.Payment;
+import model.Reservation;
+
+import controller.PaymentController;
+import controller.ReservationController;
 
 public class PaymentAddView {
 
 	private JFrame frmNewPaymentPage;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JSpinner paymentIdSpinner;
+	private JSpinner priceSpinner;
+	private JSpinner dateSpinner;
+	private JCheckBox cardCheckBox;
+	private JCheckBox cashOrQrCheckBox;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
+	private JButton btnConfirm;
+	private JButton btnCancel;
+	
+	private ReservationController reservationController;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new PaymentAddView(new Reservation(), "1");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
 	 */
-	public PaymentAddView() {
-		initialize();
+	public PaymentAddView(Reservation reservation, String paymentId) {
+		initialize(reservation, paymentId);
 		frmNewPaymentPage.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Reservation reservation, String paymentId) {
 		frmNewPaymentPage = new JFrame();
 		frmNewPaymentPage.setTitle("NEW PAYMENT PAGE");
 		frmNewPaymentPage.getContentPane().setBackground(Color.DARK_GRAY);
 		frmNewPaymentPage.getContentPane().setLayout(null);
+		frmNewPaymentPage.setBounds(100, 100, 576, 735);
+		frmNewPaymentPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -66,10 +108,11 @@ public class PaymentAddView {
 		lblPaymentId.setBounds(10, 10, 197, 34);
 		panel_1.add(lblPaymentId);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(121, 10, 391, 33);
-		panel_1.add(textField);
+		SpinnerModel idModel = new SpinnerNumberModel(1, 1, 999, 1);
+		paymentIdSpinner = new JSpinner(idModel);
+		paymentIdSpinner.setBounds(121, 10, 197, 33);
+		panel_1.add(paymentIdSpinner);
+		paymentIdSpinner.setValue(Integer.parseInt(paymentId));
 		
 		JLabel lblAmount = new JLabel("Amount:");
 		lblAmount.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -81,24 +124,43 @@ public class PaymentAddView {
 		lblDate.setBounds(10, 98, 197, 34);
 		panel_1.add(lblDate);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(121, 54, 197, 33);
-		panel_1.add(textField_1);
+		SpinnerNumberModel priceModel = new SpinnerNumberModel(0.00, 0.00, 999.99, 1);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(121, 98, 197, 33);
-		panel_1.add(textField_2);
+		priceSpinner = new JSpinner(priceModel);
+		
+		JSpinner.NumberEditor priceEditor = new JSpinner.NumberEditor(priceSpinner, "##0.00");
+		priceSpinner.setEditor(priceEditor);
+		
+		priceSpinner.setBounds(121, 54, 197, 33);
+		panel_1.add(priceSpinner);
+		
+		reservationController = new ReservationController();
+		Double price = reservationController.calculateRentalCost(reservation);
+		priceSpinner.setValue(price);
+		
+        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH);
+        dateSpinner = new JSpinner(dateModel);
+		
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+        dateSpinner.setEditor(dateEditor);
+        dateSpinner.setBounds(121, 98, 197, 33);
+		panel_1.add(dateSpinner);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 493, 522, 129);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("CASH/QR");
-		chckbxNewCheckBox_1.setBounds(6, 6, 93, 21);
-		panel_2.add(chckbxNewCheckBox_1);
+		cashOrQrCheckBox = new JCheckBox("CASH/QR");
+		cashOrQrCheckBox.setBounds(6, 6, 93, 21);
+		panel_2.add(cashOrQrCheckBox);
+		cashOrQrCheckBox.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				cardCheckBox.setSelected(false);
+			}
+		});
 		
 		JLabel lblPaymentReference = new JLabel("Payment Reference:");
 		lblPaymentReference.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -120,9 +182,16 @@ public class PaymentAddView {
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("CARD");
-		chckbxNewCheckBox.setBounds(6, 6, 93, 21);
-		panel_3.add(chckbxNewCheckBox);
+		cardCheckBox = new JCheckBox("CARD");
+		cardCheckBox.setBounds(6, 6, 93, 21);
+		panel_3.add(cardCheckBox);
+		cardCheckBox.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				cashOrQrCheckBox.setSelected(false);
+			}
+		});
 		
 		JLabel lblCardNumber = new JLabel("Card Number:");
 		lblCardNumber.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -164,14 +233,76 @@ public class PaymentAddView {
 		textField_7.setBounds(121, 122, 391, 33);
 		panel_3.add(textField_7);
 		
-		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(10, 632, 150, 39);
 		panel.add(btnConfirm);
+		btnConfirm.setEnabled(false);
+		btnConfirm.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				Payment payment = new Payment();
+				PaymentController paymentController = new PaymentController();
+				
+				Object selectedValue = paymentIdSpinner.getValue();
+				String paymentId = String.valueOf(selectedValue);
+				payment.setPaymentId(paymentId);
+				
+				payment.setReservation(reservation);
+				
+				Object selectedAmount = priceSpinner.getValue();
+				Double amount = Double.valueOf(String.valueOf(selectedAmount));
+				payment.setAmount(amount);
+				
+				Date selectedDate = (Date) dateSpinner.getValue();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		        String formattedDate = dateFormat.format(selectedDate);        
+				payment.setPaymentDate(formattedDate);
+				
+				if (cardCheckBox.isSelected())
+				{
+					payment.setPaymentMethod("Card");
+				}
+				else
+				{
+					payment.setPaymentMethod("Cash/QR");
+				}
+				
+				try {
+					paymentController.addPayment(payment);
+					frmNewPaymentPage.dispose();
+					JOptionPane.showMessageDialog(null, "Add Payment Success");
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
-		JButton btnCancel = new JButton("Cancel");
+		cardCheckBox.addItemListener(new CheckboxItemListener(btnConfirm));
+		cashOrQrCheckBox.addItemListener(new CheckboxItemListener(btnConfirm));
+		
+		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 632, 150, 39);
 		panel.add(btnCancel);
-		frmNewPaymentPage.setBounds(100, 100, 576, 735);
-		frmNewPaymentPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	class CheckboxItemListener implements ItemListener {
+	    private JButton button;
+
+	    public CheckboxItemListener(JButton button) {
+	        this.button = button;
+	    }
+
+	    @Override
+	    public void itemStateChanged(ItemEvent e) {
+	        // Enable the button if at least one checkbox is selected, disable it otherwise
+	        boolean checkBox1Selected = ((JCheckBox) e.getSource()).isSelected();
+	        boolean checkBox2Selected = ((JCheckBox) e.getItemSelectable()).isSelected();
+	        button.setEnabled(checkBox1Selected || checkBox2Selected);
+	    }
 	}
 }

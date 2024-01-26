@@ -11,17 +11,7 @@ public class MyDatabase {
 		Class.forName("com.mysql.jdbc.Driver");
 		
 		
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/homestaybookingsystem","root","");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/sport_facility_rental_system","root","");
 		return conn;
-	}
-	
-	public static void main(String[] args) {
-		try {
-			System.out.println(MyDatabase.doConnection());
-		} catch (ClassNotFoundException | SQLException e) {
-
-			e.printStackTrace();
-		}
-		
 	}
 }

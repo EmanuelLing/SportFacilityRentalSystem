@@ -6,17 +6,27 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+
+import controller.CustomerController;
+import model.Customer;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
 public class CustomerMenuView {
 
 	private JFrame frmMemberMenu;
-	private JTextField textField;
+	private JComboBox<String> customerComboBox;
 
 	/**
 	 * Launch the application.
@@ -39,6 +49,7 @@ public class CustomerMenuView {
 	 */
 	public CustomerMenuView() {
 		initialize();
+		frmMemberMenu.setVisible(true);
 	}
 
 	/**
@@ -61,9 +72,14 @@ public class CustomerMenuView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton = new JButton("New Registration");
-		btnNewButton.setBounds(10, 57, 140, 35);
-		panel_1.add(btnNewButton);
+		JButton btnNewRegister = new JButton("New Registration");
+		btnNewRegister.setBounds(10, 57, 140, 35);
+		panel_1.add(btnNewRegister);
+		btnNewRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CustomerAddView();
+			}
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(300, 10, 274, 133);
@@ -73,32 +89,68 @@ public class CustomerMenuView {
 		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblNewLabel.setBounds(10, 10, 280, 50);
 		panel_1.add(lblNewLabel);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBounds(10, 173, 584, 227);
 		panel.add(panel_1_1);
 		panel_1_1.setLayout(null);
 		
-		JButton btnMemberSearch = new JButton("Search");
-		btnMemberSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnMemberSearch.setBounds(10, 152, 140, 37);
-		panel_1_1.add(btnMemberSearch);
-		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(160, 152, 140, 37);
 		panel_1_1.add(btnCancel);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 113, 389, 29);
-		panel_1_1.add(textField);
-		textField.setColumns(10);
+		DefaultComboBoxModel<String> customerToString = new DefaultComboBoxModel<>();
+		CustomerController customerController = new CustomerController();
+		try {
+			ArrayList<Customer> customers = customerController.ListoutCustomer();
+			
+			for (Customer c : customers)
+			{
+				customerToString.addElement(c.getCustomerId() + " - " + c.getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		customerComboBox = new JComboBox<>(customerToString);
+		customerComboBox.setBounds(10, 113, 389, 29);
+		panel_1_1.add(customerComboBox);
+		
+		JButton btnMemberSearch = new JButton("Search");
+		btnMemberSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] parts;
+				Customer customer = new Customer();
+				
+				String selectedCustomer = (String) customerComboBox.getSelectedItem();
+				parts = selectedCustomer.split("-");
+				String customerId = parts[0].trim();
+				customer.setCustomerId(customerId);
+				
+				try {
+					if (customerController.searchCustomer(customer))
+					{
+						new CustomerProfileView(customer);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "No Data Found");
+					}
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnMemberSearch.setBounds(10, 152, 140, 37);
+		panel_1_1.add(btnMemberSearch);
 		
 		JLabel lblMemberProfileSearch = new JLabel("Customer Profile Search ");
 		lblMemberProfileSearch.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -110,6 +162,6 @@ public class CustomerMenuView {
 		lblMemberId.setBounds(10, 70, 256, 50);
 		panel_1_1.add(lblMemberId);
 		frmMemberMenu.setBounds(100, 100, 638, 467);
-		frmMemberMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMemberMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

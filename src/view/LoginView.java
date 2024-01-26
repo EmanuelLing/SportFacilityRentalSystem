@@ -1,12 +1,17 @@
 package view;
-import java.awt.EventQueue;
 
+import model.Staff;
+import controller.StaffController;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
@@ -15,8 +20,8 @@ import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
-public class LoginView {
-
+public class LoginView extends JFrame {
+ 
 	private JFrame frmLoginpage;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
@@ -52,8 +57,9 @@ public class LoginView {
 		frmLoginpage.setTitle("SFRS LOGIN\r\n");
 		frmLoginpage.getContentPane().setBackground(new Color(255, 255, 255));
 		frmLoginpage.setBounds(100, 100, 950, 419);
-		frmLoginpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLoginpage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmLoginpage.getContentPane().setLayout(null);
+		
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.DARK_GRAY);
@@ -68,11 +74,34 @@ public class LoginView {
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setLayout(null);
 		
+		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Staff staff = new Staff();
+				staff.setUsername(txtUsername.getText());
+				staff.setPassword(txtPassword.getText());
+				
+				StaffController staffController = new StaffController();
+				try {
+					if (staffController.staffLogin(staff))
+					{
+						frmLoginpage.dispose();
+						new MainMenuView(staff);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Wrong username or password, please try again");
+					}
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnNewButton.setBounds(48, 272, 100, 40);

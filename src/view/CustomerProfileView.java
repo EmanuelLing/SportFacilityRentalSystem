@@ -4,30 +4,42 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JTextField;
+
+import controller.CustomerController;
+import model.Customer;
+
 import javax.swing.JButton;
 
 public class CustomerProfileView {
 
 	private JFrame frmMemberProfilePage;
-	private JTextField txtLast;
-	private JTextField txtFirstName;
-	private JTextField textField;
-	private JTextField textField_3;
-	private JTextField txtStreetAddress;
-	private JTextField txtPostalZip;
+	private JTextField nameTextField;
+	private JTextField emailTextField;
+	private JTextField phoneNumTextField;
+	private JTextField customerIdTextField;
 	private JLabel lblNewLabel_1_2_1_2;
 	private JTextField txtMemberId;
 	private JLabel lblNewLabel_1_2_1_8;
 	private JLabel lblNewLabel_1_2_1_9;
-	private JButton btnNewButton;
 	private JButton btnCancel;
+	private JButton btnDelete;
 	private JButton btnUpdate;
 	private JLabel lblNewLabel_1_2_1_10;
+
+	private CustomerController customerController = new CustomerController();
 
 	/**
 	 * Launch the application.
@@ -40,7 +52,7 @@ public class CustomerProfileView {
 			{
 				try 
 				{
-					CustomerProfileView window = new CustomerProfileView();
+					CustomerProfileView window = new CustomerProfileView(new Customer());
 					window.frmMemberProfilePage.setVisible(true);
 				} catch (Exception e) 
 				{
@@ -53,20 +65,21 @@ public class CustomerProfileView {
 	/**
 	 * Create the application.
 	 */
-	public CustomerProfileView() {
-		initialize();
+	public CustomerProfileView(Customer customer) {
+		initialize(customer);
+		frmMemberProfilePage.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Customer customer) {
 		frmMemberProfilePage = new JFrame();
 		frmMemberProfilePage.setTitle("MEMBER PROFILE PAGE");
 		frmMemberProfilePage.getContentPane().setBackground(Color.DARK_GRAY);
 		frmMemberProfilePage.getContentPane().setLayout(null);
 		frmMemberProfilePage.setBounds(100, 100, 855, 653);
-		frmMemberProfilePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMemberProfilePage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -84,102 +97,108 @@ public class CustomerProfileView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		txtFirstName = new JTextField();
-		txtFirstName.setForeground(Color.LIGHT_GRAY);
-		txtFirstName.setColumns(10);
-		txtFirstName.setBounds(166, 20, 239, 33);
-		panel_1.add(txtFirstName);
+		nameTextField = new JTextField();
+		nameTextField.setColumns(10);
+		nameTextField.setBounds(166, 20, 488, 33);
+		panel_1.add(nameTextField);
+		nameTextField.setText(customer.getName());
 		
 		JLabel lblNewLabel_1 = new JLabel("Name:");
 		lblNewLabel_1.setBounds(10, 28, 133, 13);
 		panel_1.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		
-		txtLast = new JTextField();
-		txtLast.setForeground(Color.LIGHT_GRAY);
-		txtLast.setBounds(415, 20, 239, 33);
-		panel_1.add(txtLast);
-		txtLast.setColumns(10);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(166, 69, 488, 33);
-		panel_1.add(textField);
+		emailTextField = new JTextField();
+		emailTextField.setColumns(10);
+		emailTextField.setBounds(166, 69, 488, 33);
+		panel_1.add(emailTextField);
+		emailTextField.setText(customer.getEmailAddress());
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Email:");
 		lblNewLabel_1_2.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblNewLabel_1_2.setBounds(10, 77, 133, 13);
 		panel_1.add(lblNewLabel_1_2);
 		
-		textField_3 = new JTextField();
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setColumns(10);
-		textField_3.setBounds(166, 121, 488, 33);
-		panel_1.add(textField_3);
+		phoneNumTextField = new JTextField();
+		phoneNumTextField.setColumns(10);
+		phoneNumTextField.setBounds(166, 121, 488, 33);
+		panel_1.add(phoneNumTextField);
+		phoneNumTextField.setText(customer.getPhoneNum());
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Phone:");
 		lblNewLabel_1_2_1.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblNewLabel_1_2_1.setBounds(10, 129, 133, 13);
 		panel_1.add(lblNewLabel_1_2_1);
-		
-		JLabel lblNewLabel_1_2_1_1 = new JLabel("Address:");
-		lblNewLabel_1_2_1_1.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblNewLabel_1_2_1_1.setBounds(10, 181, 133, 13);
-		panel_1.add(lblNewLabel_1_2_1_1);
-		
-		txtStreetAddress = new JTextField();
-		txtStreetAddress.setForeground(Color.LIGHT_GRAY);
-		txtStreetAddress.setColumns(10);
-		txtStreetAddress.setBounds(166, 181, 488, 83);
-		panel_1.add(txtStreetAddress);
-		
-		txtPostalZip = new JTextField();
-		txtPostalZip.setForeground(Color.LIGHT_GRAY);
-		txtPostalZip.setColumns(10);
-		txtPostalZip.setBounds(166, 298, 488, 33);
-		panel_1.add(txtPostalZip);
-		
+
+		customerIdTextField = new JTextField();
+		customerIdTextField.setBounds(166, 173, 488, 33);
+		panel_1.add(customerIdTextField);
+		customerIdTextField.setText(customer.getCustomerId());
+		customerIdTextField.setEditable(false);
+			
 		lblNewLabel_1_2_1_2 = new JLabel("Customer ID:");
 		lblNewLabel_1_2_1_2.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblNewLabel_1_2_1_2.setBounds(10, 363, 133, 13);
+		lblNewLabel_1_2_1_2.setBounds(10, 181, 133, 13);
 		panel_1.add(lblNewLabel_1_2_1_2);
 		
-		txtMemberId = new JTextField();
-		txtMemberId.setForeground(Color.LIGHT_GRAY);
-		txtMemberId.setColumns(10);
-		txtMemberId.setBounds(166, 355, 488, 33);
-		panel_1.add(txtMemberId);
-		
-		lblNewLabel_1_2_1_8 = new JLabel("FIRST");
-		lblNewLabel_1_2_1_8.setForeground(Color.GRAY);
-		lblNewLabel_1_2_1_8.setFont(new Font("SansSerif", Font.PLAIN, 10));
-		lblNewLabel_1_2_1_8.setBounds(166, 10, 133, 13);
-		panel_1.add(lblNewLabel_1_2_1_8);
-		
-		lblNewLabel_1_2_1_9 = new JLabel("LAST");
-		lblNewLabel_1_2_1_9.setForeground(Color.GRAY);
-		lblNewLabel_1_2_1_9.setFont(new Font("SansSerif", Font.PLAIN, 10));
-		lblNewLabel_1_2_1_9.setBounds(413, 10, 133, 13);
-		panel_1.add(lblNewLabel_1_2_1_9);
-		
-		lblNewLabel_1_2_1_10 = new JLabel("Password:");
-		lblNewLabel_1_2_1_10.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblNewLabel_1_2_1_10.setBounds(10, 308, 133, 13);
-		panel_1.add(lblNewLabel_1_2_1_10);
-		
-		btnNewButton = new JButton("Cancel");
-		btnNewButton.setBounds(170, 481, 150, 39);
-		panel.add(btnNewButton);
-		
-		btnCancel = new JButton("Delete");
-		btnCancel.setBounds(531, 481, 143, 39);
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(170, 481, 150, 39);
 		panel.add(btnCancel);
+		
+		btnDelete = new JButton("Delete");
+		btnDelete.setBounds(531, 481, 143, 39);
+		panel.add(btnDelete);
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to delete this customer?", 
+                        "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                	try {
+                		customerController.deleteCustomer(customer);
+    					JOptionPane.showMessageDialog(null, "Customer Deleted");
+    					frmMemberProfilePage.dispose();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                }
+            }
+        });
 		
 		btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(10, 481, 150, 39);
 		panel.add(btnUpdate);
+		btnUpdate.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{	
+				customer.setEmailAddress(emailTextField.getText());
+				
+				customer.setName(nameTextField.getText());
+				
+				customer.setPhoneNum(phoneNumTextField.getText());
+				
+				try {
+					customerController.updateCustomer(customer);
+					JOptionPane.showMessageDialog(null, "Update Customer Success");
+					frmMemberProfilePage.dispose();
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		frmMemberProfilePage.setBounds(100, 100, 718, 589);
-		frmMemberProfilePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 

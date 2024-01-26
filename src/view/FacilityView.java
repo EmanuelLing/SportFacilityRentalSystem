@@ -56,6 +56,7 @@ public class FacilityView {
 	 */
 	public FacilityView() {
 		initialize();
+		frmFacility.setVisible(true);
 	}
 
 	/**
@@ -159,7 +160,7 @@ public class FacilityView {
 		frmFacility = new JFrame();
 		frmFacility.setTitle("Facility");
 		frmFacility.setBounds(100, 100, 450, 300);
-		frmFacility.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFacility.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		
 	}
