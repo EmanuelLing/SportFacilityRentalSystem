@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
+import model.FacilityReservation;
+
 public class FacilityStatusView {
 
     private JFrame frmFacilityStatusPage;
