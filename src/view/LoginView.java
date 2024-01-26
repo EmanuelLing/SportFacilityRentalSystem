@@ -51,13 +51,13 @@ public class LoginView {
 		frmLoginpage = new JFrame();
 		frmLoginpage.setTitle("SFRS LOGIN\r\n");
 		frmLoginpage.getContentPane().setBackground(new Color(255, 255, 255));
-		frmLoginpage.setBounds(100, 100, 950, 419);
+		frmLoginpage.setBounds(100, 100, 962, 411);
 		frmLoginpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLoginpage.getContentPane().setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.DARK_GRAY);
-		panel_2.setBounds(0, 0, 1057, 605);
+		panel_2.setBounds(0, 0, 965, 381);
 		frmLoginpage.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -105,6 +105,11 @@ public class LoginView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon(LoginView.class.getResource("/view/img/8e6089cc83644af9bba70e8aca1c6e8a.jpg")));
+		lblNewLabel_2.setBounds(10, 10, 271, 319);
+		panel_1.add(lblNewLabel_2);
+		
 		JLabel lblUsername = new JLabel("USERNAME:");
 		lblUsername.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		lblUsername.setBounds(49, 98, 130, 40);
@@ -115,9 +120,9 @@ public class LoginView {
 		lblPassword.setBounds(48, 182, 130, 40);
 		panel.add(lblPassword);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(471, -185, 979, 760);
-		panel_2.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\yasri\\OneDrive - Universiti Teknikal Malaysia Melaka_B032220029\\OneDrive - Universiti Teknikal Malaysia Melaka\\Degree\\23-24\\BITP 3113 OOP\\project\\img\\0299ffa30f08a08f64564258baea3032.jpg"));
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/view/img/16e57efc9d56c29d4ab7a651bd082efd.jpg")));
+		lblNewLabel_1.setBounds(392, -14, 563, 395);
+		panel_2.add(lblNewLabel_1);
 	}
 }

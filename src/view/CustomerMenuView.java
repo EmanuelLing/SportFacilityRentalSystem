@@ -65,10 +65,6 @@ public class CustomerMenuView {
 		btnNewButton.setBounds(10, 57, 140, 35);
 		panel_1.add(btnNewButton);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(300, 10, 274, 133);
-		panel_1.add(panel_2);
-		
 		JLabel lblNewLabel = new JLabel("New Customer Registration");
 		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblNewLabel.setBounds(10, 10, 280, 50);

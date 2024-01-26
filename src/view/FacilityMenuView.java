@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class FacilityMenuView {
 
@@ -76,6 +77,11 @@ public class FacilityMenuView {
 		btnNewButton_1.setBounds(53, 267, 98, 29);
 		panel_2.add(btnNewButton_1);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(-198, 0, 675, 417);
+		panel_2.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon(FacilityMenuView.class.getResource("/view/img/f2dc4e3f86ccc8d7221560c2f7af9c3d.jpg")));
+		
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setBounds(449, 83, 200, 306);
 		panel.add(panel_2_2);
@@ -85,6 +91,11 @@ public class FacilityMenuView {
 		btnNewButton_1_2.setBounds(57, 267, 98, 29);
 		panel_2_2.add(btnNewButton_1_2);
 		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon(FacilityMenuView.class.getResource("/view/img/069745379fee9b589b441a288d0ac911.jpg")));
+		lblNewLabel_2.setBounds(-124, 0, 523, 316);
+		panel_2_2.add(lblNewLabel_2);
+		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBounds(226, 83, 213, 306);
 		panel.add(panel_2_1);
@@ -93,6 +104,11 @@ public class FacilityMenuView {
 		JButton btnNewButton_1_1 = new JButton("SELECT");
 		btnNewButton_1_1.setBounds(61, 267, 98, 29);
 		panel_2_1.add(btnNewButton_1_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon(FacilityMenuView.class.getResource("/view/img/9e895763307ecfb3bb2d86f37bacea2b.jpg")));
+		lblNewLabel_1.setBounds(-104, 0, 784, 409);
+		panel_2_1.add(lblNewLabel_1);
 		
 		JLabel lblFacilitySelectionMenu = new JLabel("Facility Selection Menu:");
 		lblFacilitySelectionMenu.setFont(new Font("SansSerif", Font.BOLD, 30));
