@@ -121,3 +121,4 @@ public class LoginView {
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\yasri\\OneDrive - Universiti Teknikal Malaysia Melaka_B032220029\\OneDrive - Universiti Teknikal Malaysia Melaka\\Degree\\23-24\\BITP 3113 OOP\\project\\img\\0299ffa30f08a08f64564258baea3032.jpg"));
 	}
 }
+
