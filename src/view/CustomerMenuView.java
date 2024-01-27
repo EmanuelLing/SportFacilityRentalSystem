@@ -39,6 +39,7 @@ public class CustomerMenuView {
 	 */
 	public CustomerMenuView() {
 		initialize();
+		frmMemberMenu.setVisible(true);
 	}
 
 	/**
@@ -69,8 +70,12 @@ public class CustomerMenuView {
 		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblNewLabel.setBounds(10, 10, 280, 50);
 		panel_1.add(lblNewLabel);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new CustomerAddView();
+				frmMemberMenu.dispose();
 			}
 		});
 		
@@ -80,8 +85,13 @@ public class CustomerMenuView {
 		panel_1_1.setLayout(null);
 		
 		JButton btnMemberSearch = new JButton("Search");
-		btnMemberSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnMemberSearch.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new CustomerProfileView();
+				frmMemberMenu.dispose();
 			}
 		});
 		btnMemberSearch.setBounds(10, 152, 140, 37);
@@ -90,6 +100,15 @@ public class CustomerMenuView {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(160, 152, 140, 37);
 		panel_1_1.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new MainMenuView();
+				frmMemberMenu.dispose();
+			}
+		});
 		
 		textField = new JTextField();
 		textField.setBounds(10, 113, 389, 29);
@@ -105,6 +124,7 @@ public class CustomerMenuView {
 		lblMemberId.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblMemberId.setBounds(10, 70, 256, 50);
 		panel_1_1.add(lblMemberId);
+		
 		frmMemberMenu.setBounds(100, 100, 638, 467);
 		frmMemberMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

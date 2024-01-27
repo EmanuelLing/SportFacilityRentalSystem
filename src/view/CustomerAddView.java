@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class CustomerAddView {
@@ -48,6 +51,7 @@ public class CustomerAddView {
 	 */
 	public CustomerAddView() {
 		initialize();
+		frmMemberPage.setVisible(true);
 	}
 
 	/**
@@ -165,6 +169,17 @@ public class CustomerAddView {
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 481, 148, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new CustomerMenuView();
+				frmMemberPage.dispose();
+			}
+		});
+		
+		
 		frmMemberPage.setBounds(100, 100, 718, 589);
 		frmMemberPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

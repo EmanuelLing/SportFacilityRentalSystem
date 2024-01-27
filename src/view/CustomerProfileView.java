@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -170,6 +173,15 @@ public class CustomerProfileView {
 		btnNewButton = new JButton("Cancel");
 		btnNewButton.setBounds(170, 481, 150, 39);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new CustomerMenuView();
+				frmMemberProfilePage.dispose();
+			}
+		});
 		
 		btnCancel = new JButton("Delete");
 		btnCancel.setBounds(531, 481, 143, 39);

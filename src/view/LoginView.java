@@ -71,8 +71,13 @@ public class LoginView {
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add check password here
+				new MainMenuView();
+				frmLoginpage.dispose();
 			}
 		});
 		btnNewButton.setBounds(48, 272, 100, 40);

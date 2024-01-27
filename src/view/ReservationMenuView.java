@@ -29,7 +29,8 @@ public class ReservationMenuView implements ActionListener, KeyListener
 	/**
 	 * Create the application.
 	 */
-	ReservationMenuView() {
+	public ReservationMenuView() 
+	{
 		initialize();
 		frmReservationMenuPage.setVisible(true);
 	}
@@ -62,6 +63,7 @@ public class ReservationMenuView implements ActionListener, KeyListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				new ReservationAddView();
+				frmReservationMenuPage.dispose();
 			}
 		});
 		
@@ -69,6 +71,19 @@ public class ReservationMenuView implements ActionListener, KeyListener
 		lblNewReservation.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		lblNewReservation.setBounds(10, 10, 183, 29);
 		panel_1.add(lblNewReservation);
+		
+		JButton btnNewButton_1_2 = new JButton("Back");
+		btnNewButton_1_2.setBounds(481, 53, 98, 29);
+		panel_1.add(btnNewButton_1_2);
+		btnNewButton_1_2.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new MainMenuView();
+				frmReservationMenuPage.dispose();
+			}
+		});
 		
 		
 		JPanel panel_2 = new JPanel();
@@ -110,19 +125,20 @@ public class ReservationMenuView implements ActionListener, KeyListener
 		
 	}
 
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		
+		
+		
+	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		if (e.getSource()== btnNewButton_1)
-		{
-			new ReservationAddView();//this part can be change to go back to menu etc..
-		}
-		
-	}
 }
+
+

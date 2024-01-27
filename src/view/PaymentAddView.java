@@ -7,6 +7,9 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -164,13 +167,23 @@ public class PaymentAddView {
 		textField_7.setBounds(121, 122, 391, 33);
 		panel_3.add(textField_7);
 		
-		JButton btnConfirm = new JButton("Confirm");
+		JButton btnConfirm = new JButton("Confirm"); //add into database
 		btnConfirm.setBounds(10, 632, 150, 39);
 		panel.add(btnConfirm);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 632, 150, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new ReservationAddView(); //go back to the reservation menu
+				frmNewPaymentPage.dispose();
+			}
+		});
+		
 		frmNewPaymentPage.setBounds(100, 100, 576, 735);
 		frmNewPaymentPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

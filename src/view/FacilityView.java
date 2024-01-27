@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,8 +56,10 @@ public class FacilityView {
 	/**
 	 * Create the application.
 	 */
-	public FacilityView() {
+	public FacilityView() 
+	{
 		initialize();
+		frmFacility.setVisible(true);
 	}
 
 	/**
@@ -151,6 +155,15 @@ public class FacilityView {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 404, 150, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new FacilityMenuView(); //change it to the facility later
+				frmFacility.dispose();
+			}
+		});
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setBounds(531, 401, 150, 39);

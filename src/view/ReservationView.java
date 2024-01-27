@@ -189,7 +189,8 @@ public class ReservationView {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				new PaymentAddView();
+				new PaymentView(); //change to read payment details
+				frmReservationInfoPage.dispose();
 			}
 		});
 		
@@ -200,6 +201,14 @@ public class ReservationView {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 394, 150, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new ReservationMenuView();
+				frmReservationInfoPage.dispose();
+			}
+		});
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setBounds(674, 394, 150, 39);

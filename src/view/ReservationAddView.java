@@ -188,6 +188,7 @@ public class ReservationAddView implements ActionListener, KeyListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				new PaymentAddView();
+				frmNewReservationPage.dispose();
 			}
 		});
 		
@@ -211,6 +212,15 @@ public class ReservationAddView implements ActionListener, KeyListener
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(170, 394, 150, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new ReservationMenuView();
+				frmNewReservationPage.dispose();
+			}
+		});
 		
 		
 		

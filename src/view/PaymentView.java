@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -176,15 +178,24 @@ public class PaymentView {
 		textField_7.setBounds(121, 122, 391, 33);
 		panel_3.add(textField_7);
 		
-		JButton btnConfirm = new JButton("Update");
+		JButton btnConfirm = new JButton("Update"); //update into the database
 		btnConfirm.setBounds(10, 632, 150, 39);
 		panel.add(btnConfirm);
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Cancel"); 
 		btnCancel.setBounds(170, 632, 150, 39);
 		panel.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//add the search here
+				new ReservationView(); //go back to the reservation menu
+				frmPaymentPage.dispose();
+			}
+		});
 		
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton("Delete"); //delete data from database
 		btnDelete.setBounds(382, 632, 150, 39);
 		panel.add(btnDelete);
 		frmPaymentPage.setBounds(100, 100, 576, 735);

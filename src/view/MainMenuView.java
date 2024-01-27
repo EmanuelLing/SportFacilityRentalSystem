@@ -74,7 +74,10 @@ public class MainMenuView implements ActionListener, KeyListener
 		btnNewButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
-			{}
+			{
+				new CustomerMenuView();
+				frmSfrsMenu.dispose();
+			}
 		});
 		
 		JPanel panel_1_1 = new JPanel();
@@ -95,6 +98,7 @@ public class MainMenuView implements ActionListener, KeyListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				new ReservationMenuView();
+				frmSfrsMenu.dispose();
 			}
 		});
 		
@@ -108,11 +112,20 @@ public class MainMenuView implements ActionListener, KeyListener
 		btnFacilityStatus.setBounds(10, 269, 153, 42);
 		panel_1_2.add(btnFacilityStatus);
 		
+		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setIcon(new ImageIcon(MainMenuView.class.getResource("/view/img/37a5a812f7bd4e6a8174757dce3472cb.jpg")));
 		lblNewLabel_2.setBounds(-195, -121, 613, 564);
 		panel_1_2.add(lblNewLabel_2);
+		btnFacilityStatus.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new FacilityMenuView();
+				frmSfrsMenu.dispose();
+			}
+		});
 		
 		JPanel panel_1_3 = new JPanel();
 		panel_1_3.setBounds(580, 10, 180, 321);
@@ -122,8 +135,11 @@ public class MainMenuView implements ActionListener, KeyListener
 		btnMonthlyReport.setBounds(10, 269, 153, 42);
 		btnMonthlyReport.addActionListener(new ActionListener() 
 		{
-			public void actionPerformed(ActionEvent e) 
-			{}
+			public void actionPerformed(ActionEvent e) //set up monthly report
+			{
+				new ReportView();
+				frmSfrsMenu.dispose();
+			}
 		});
 		panel_1_3.setLayout(null);
 		panel_1_3.add(btnMonthlyReport);
@@ -132,6 +148,7 @@ public class MainMenuView implements ActionListener, KeyListener
 		lblNewLabel_3.setIcon(new ImageIcon(MainMenuView.class.getResource("/view/img/1474dd76d20d2bd7f997c4741cff0484.jpg")));
 		lblNewLabel_3.setBounds(-154, 0, 444, 331);
 		panel_1_3.add(lblNewLabel_3);
+		
 		frmSfrsMenu.setTitle("SFRS MENU");
 		frmSfrsMenu.setBounds(100, 100, 811, 389);
 		frmSfrsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
