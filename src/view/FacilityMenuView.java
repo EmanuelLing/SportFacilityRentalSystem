@@ -6,14 +6,27 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+
+import controller.SportFacilityController;
+import controller.StaffController;
+import model.SportFacility;
+import model.Staff;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class FacilityMenuView {
 
 	private JFrame frmFacilitiesPage;
+	private SportFacility sportFacility = new SportFacility();
+	private SportFacilityController sportFacilityController = new SportFacilityController();
 
 	/**
 	 * Launch the application.
@@ -54,52 +67,89 @@ public class FacilityMenuView {
 		frmFacilitiesPage.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 399, 639, 112);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton btnNewButton = new JButton("NEW FACILITY");
-		btnNewButton.setBounds(10, 63, 130, 34);
-		panel_1.add(btnNewButton);
-		
-		JLabel lblAddNewFacility = new JLabel("Add New Facility");
-		lblAddNewFacility.setFont(new Font("SansSerif", Font.BOLD, 35));
-		lblAddNewFacility.setBounds(10, 10, 329, 63);
-		panel_1.add(lblAddNewFacility);
-		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 83, 206, 306);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("SELECT");
-		btnNewButton_1.setBounds(53, 267, 98, 29);
-		panel_2.add(btnNewButton_1);
+		JButton btnSelect1 = new JButton("SELECT");
+		btnSelect1.setBounds(53, 267, 98, 29);
+		panel_2.add(btnSelect1);
+		btnSelect1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sportFacility.setFacilityId("1");
+				
+				try {
+					sportFacilityController.getSportFacilityById(sportFacility);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				new FacilityView(sportFacility);
+			}
+		});
 		
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setBounds(449, 83, 200, 306);
 		panel.add(panel_2_2);
 		panel_2_2.setLayout(null);
 		
-		JButton btnNewButton_1_2 = new JButton("SELECT");
-		btnNewButton_1_2.setBounds(57, 267, 98, 29);
-		panel_2_2.add(btnNewButton_1_2);
+		JButton btnSelect2 = new JButton("SELECT");
+		btnSelect2.setBounds(57, 267, 98, 29);
+		panel_2_2.add(btnSelect2);
+		btnSelect2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sportFacility.setFacilityId("2");
+				
+				try {
+					sportFacilityController.getSportFacilityById(sportFacility);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				new FacilityView(sportFacility);
+			}
+		});
 		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBounds(226, 83, 213, 306);
 		panel.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
-		JButton btnNewButton_1_1 = new JButton("SELECT");
-		btnNewButton_1_1.setBounds(61, 267, 98, 29);
-		panel_2_1.add(btnNewButton_1_1);
+		JButton btnSelect3 = new JButton("SELECT");
+		btnSelect3.setBounds(61, 267, 98, 29);
+		panel_2_1.add(btnSelect3);
+		btnSelect3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sportFacility.setFacilityId("3");
+				
+				try {
+					sportFacilityController.getSportFacilityById(sportFacility);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				new FacilityView(sportFacility);
+			}
+		});
 		
 		JLabel lblFacilitySelectionMenu = new JLabel("Facility Selection Menu:");
 		lblFacilitySelectionMenu.setFont(new Font("SansSerif", Font.BOLD, 30));
 		lblFacilitySelectionMenu.setBounds(10, 10, 363, 63);
 		panel.add(lblFacilitySelectionMenu);
 		frmFacilitiesPage.setBounds(100, 100, 693, 578);
-		frmFacilitiesPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFacilitiesPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

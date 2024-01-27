@@ -107,7 +107,7 @@ public class MainMenuView extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				new FacilityView();
+				new FacilityMenuView();
 			}
 		});
 		
@@ -120,7 +120,9 @@ public class MainMenuView extends JFrame
 		btnMonthlyReport.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
-			{}
+			{
+				new ReportAnalysisView();
+			}
 		});
 		btnMonthlyReport.setBounds(10, 269, 153, 42);
 		panel_1_3.add(btnMonthlyReport);

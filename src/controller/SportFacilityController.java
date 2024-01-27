@@ -31,4 +31,28 @@ public class SportFacilityController {
 		conn.close();
 		return sportFacilities;
 	}
+	
+	public void getSportFacilityById(SportFacility facility) throws ClassNotFoundException, SQLException
+	{
+		Connection conn = MyDatabase.doConnection();
+		
+		String sql = "SELECT FacilityName, Location, Capacity, RentalCost, FacilityType "
+				+ "FROM sport_facility WHERE FacilityID = ?";
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		preparedStatement.setString(1, facility.getFacilityId());
+		
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		if (resultSet.next())
+		{
+			facility.setFacilityName(resultSet.getString(1));
+			facility.setLocation(resultSet.getString(2));
+			facility.setCapacity(resultSet.getString(3));
+			facility.setRentalCost(Double.valueOf(resultSet.getString(4)));
+			facility.getFacilityType().setFacilityType(resultSet.getString(5));
+		}
+		
+		conn.close();
+	}
 }

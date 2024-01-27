@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.SportFacility;
+
 public class FacilityView {
 
 	private JFrame frmFacility;
@@ -28,12 +30,12 @@ public class FacilityView {
 	private JLabel lblNewLabel_1_3;
 	private JButton btnNewButton;
 	private JButton btnUpdate;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField facilityNameTextField;
+	private JTextField locationTextField;
+	private JTextField capacityTextField;
+	private JTextField rentalCostTextField;
+	private JTextField facilityTypeTextField;
+	private JTextField facilityIdTextField;
 
 	/**
 	 * Launch the application.
@@ -42,7 +44,7 @@ public class FacilityView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FacilityView window = new FacilityView();
+					FacilityView window = new FacilityView(new SportFacility());
 					window.frmFacility.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,20 +56,22 @@ public class FacilityView {
 	/**
 	 * Create the application.
 	 */
-	public FacilityView() {
-		initialize();
+	public FacilityView(SportFacility sportFacility) {
+		initialize(sportFacility);
 		frmFacility.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(SportFacility sportFacility) {
 		
 		frmFacility = new JFrame();
 		frmFacility.setTitle("FACILITY PAGE");
 		frmFacility.getContentPane().setBackground(Color.DARK_GRAY);
 		frmFacility.getContentPane().setLayout(null);
+		frmFacility.setBounds(100, 100, 750, 540);
+		frmFacility.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -110,59 +114,52 @@ public class FacilityView {
 		lblNewLabel_1_4_4.setBounds(10, 61, 133, 13);
 		panel_2.add(lblNewLabel_1_4_4);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(159, 10, 502, 33);
-		panel_2.add(textField_5);
+		facilityNameTextField = new JTextField();
+		facilityNameTextField.setColumns(10);
+		facilityNameTextField.setBounds(159, 10, 502, 33);
+		panel_2.add(facilityNameTextField);
+		facilityNameTextField.setText(sportFacility.getFacilityName());
+		facilityNameTextField.setEditable(false);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(159, 53, 502, 73);
-		panel_2.add(textField_6);
+		locationTextField = new JTextField();
+		locationTextField.setColumns(10);
+		locationTextField.setBounds(159, 53, 502, 73);
+		panel_2.add(locationTextField);
+		locationTextField.setText(sportFacility.getLocation()); 
+		locationTextField.setEditable(false);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(159, 136, 125, 33);
-		panel_2.add(textField_7);
+		capacityTextField = new JTextField();
+		capacityTextField.setColumns(10);
+		capacityTextField.setBounds(159, 136, 125, 33);
+		panel_2.add(capacityTextField);
+		capacityTextField.setText(sportFacility.getCapacity());
+		capacityTextField.setEditable(false);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(159, 179, 125, 33);
-		panel_2.add(textField_8);
+		rentalCostTextField = new JTextField();
+		rentalCostTextField.setColumns(10);
+		rentalCostTextField.setBounds(159, 179, 125, 33);
+		panel_2.add(rentalCostTextField);
+		rentalCostTextField.setText(String.valueOf(sportFacility.getRentalCost()));
+		rentalCostTextField.setEditable(false);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(159, 222, 125, 33);
-		panel_2.add(textField_9);
+		facilityTypeTextField = new JTextField();
+		facilityTypeTextField.setColumns(10);
+		facilityTypeTextField.setBounds(159, 222, 125, 33);
+		panel_2.add(facilityTypeTextField);
+		facilityTypeTextField.setText(sportFacility.getFacilityType().getFacilityType());
+		facilityTypeTextField.setEditable(false);
 		
 		JLabel lblNewLabel_1_4_2_1 = new JLabel("Facility ID:");
 		lblNewLabel_1_4_2_1.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblNewLabel_1_4_2_1.setBounds(10, 283, 133, 13);
 		panel_2.add(lblNewLabel_1_4_2_1);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(159, 265, 502, 33);
-		panel_2.add(textField_10);
-		
-		JButton btnAdd = new JButton("Update");
-		btnAdd.setBounds(10, 404, 150, 39);
-		panel.add(btnAdd);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(170, 404, 150, 39);
-		panel.add(btnCancel);
-		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(531, 401, 150, 39);
-		panel.add(btnDelete);
-		
-		frmFacility = new JFrame();
-		frmFacility.setTitle("Facility");
-		frmFacility.setBounds(100, 100, 450, 300);
-		frmFacility.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		
+		facilityIdTextField = new JTextField();
+		facilityIdTextField.setColumns(10);
+		facilityIdTextField.setBounds(159, 265, 502, 33);
+		panel_2.add(facilityIdTextField);
+		facilityIdTextField.setText(sportFacility.getFacilityId());
+		facilityIdTextField.setEditable(false);
 	}
 
 }
