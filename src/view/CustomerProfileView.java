@@ -4,9 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,13 +29,9 @@ public class CustomerProfileView {
 	private JTextField phoneNumTextField;
 	private JTextField customerIdTextField;
 	private JLabel lblNewLabel_1_2_1_2;
-	private JTextField txtMemberId;
-	private JLabel lblNewLabel_1_2_1_8;
-	private JLabel lblNewLabel_1_2_1_9;
 	private JButton btnCancel;
 	private JButton btnDelete;
 	private JButton btnUpdate;
-	private JLabel lblNewLabel_1_2_1_10;
 
 	private CustomerController customerController = new CustomerController();
 

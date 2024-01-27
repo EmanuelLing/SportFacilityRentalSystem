@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 
 import controller.CustomerController;
 import model.Customer;
@@ -20,7 +19,6 @@ import model.Customer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 
 public class CustomerMenuView {

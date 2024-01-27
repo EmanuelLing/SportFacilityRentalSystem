@@ -1,10 +1,5 @@
 package model;
 
-import javax.swing.*;
-import java.awt.*;
-//no 1 import the Listener's library
-import java.awt.event.*;
-
 public class Reservation 
 {
 	private String reservationId;

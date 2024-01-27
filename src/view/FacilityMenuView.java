@@ -5,17 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 
 import controller.SportFacilityController;
-import controller.StaffController;
 import model.SportFacility;
-import model.Staff;
 
-import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -72,6 +68,11 @@ public class FacilityMenuView {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(-103, -14, 784, 409);
+		panel_2.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon("img/9e895763307ecfb3bb2d86f37bacea2b.jpg"));
+		
 		JButton btnSelect1 = new JButton("SELECT");
 		btnSelect1.setBounds(53, 267, 98, 29);
 		panel_2.add(btnSelect1);
@@ -98,6 +99,11 @@ public class FacilityMenuView {
 		panel.add(panel_2_2);
 		panel_2_2.setLayout(null);
 		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(-195, -58, 675, 463);
+		panel_2_2.add(lblNewLabel_2);
+		lblNewLabel_2.setIcon(new ImageIcon("img/1e124664217dda04b3ed9506b7cdc5e3.jpg"));
+		
 		JButton btnSelect2 = new JButton("SELECT");
 		btnSelect2.setBounds(57, 267, 98, 29);
 		panel_2_2.add(btnSelect2);
@@ -123,6 +129,11 @@ public class FacilityMenuView {
 		panel_2_1.setBounds(226, 83, 213, 306);
 		panel.add(panel_2_1);
 		panel_2_1.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("img/1ee2b111c43b9e3e0d7d4eb79736f3b7.jpg"));
+		lblNewLabel_1.setBounds(-174, -636, 613, 1002);
+		panel_2_1.add(lblNewLabel_1);
 		
 		JButton btnSelect3 = new JButton("SELECT");
 		btnSelect3.setBounds(61, 267, 98, 29);

@@ -24,7 +24,6 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
 import controller.CustomerController;

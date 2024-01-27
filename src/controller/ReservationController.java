@@ -1,17 +1,14 @@
 package controller;
 
 import model.Reservation;
-import model.SportFacility;
 
 import java.sql.Connection;
-import java.util.*;
 import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 

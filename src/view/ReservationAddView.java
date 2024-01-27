@@ -2,25 +2,17 @@ package view;
 
 import javax.swing.JFrame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -31,8 +23,6 @@ import model.Customer;
 import model.SportFacility;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -40,15 +30,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import controller.CustomerController;
-import java.util.Iterator;
 import controller.SportFacilityController;
-import java.util.List;
 import controller.ReservationController;
 
 
 public class ReservationAddView extends JFrame
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmNewReservationPage;
 	private JComboBox<String> sportFacilityComboBox;
 	private JComboBox<String> customerComboBox;
@@ -58,10 +50,6 @@ public class ReservationAddView extends JFrame
 	private JSpinner endTimeSpinner;
 	private JTextField staffTextField;
 	private JSpinner paymentIdSpinner;
-	
-	private JButton btnConfirm;
-	private JButton btnCancel;
-	private JButton btnPay;
 	
 	private Reservation reservation;
 	private SportFacilityController sportFacilityController;
@@ -123,7 +111,7 @@ public class ReservationAddView extends JFrame
 			e.printStackTrace();
 		}
 		
-		sportFacilityComboBox = new JComboBox(facilityToString);
+		sportFacilityComboBox = new JComboBox<String>(facilityToString);
 		sportFacilityComboBox.setBounds(10, 75, 378, 34);
 		panel_1.add(sportFacilityComboBox);
 		//comboBox.setColumns(10);

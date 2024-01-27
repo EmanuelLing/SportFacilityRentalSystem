@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import database.MyDatabase;
 import model.Customer;
-import model.Reservation;
 
 public class CustomerController {
 

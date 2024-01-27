@@ -149,6 +149,7 @@ public class PaymentView {
 		textField_8.setColumns(10);
 		textField_8.setBounds(6, 77, 506, 33);
 		panel_2.add(textField_8);
+		textField_8.setEditable(false);
 		
 		JLabel lblPayment = new JLabel("Payment:");
 		lblPayment.setFont(new Font("SansSerif", Font.BOLD, 30));
@@ -193,26 +194,31 @@ public class PaymentView {
 		textField_3.setColumns(10);
 		textField_3.setBounds(121, 33, 277, 33);
 		panel_3.add(textField_3);
+		textField_3.setEditable(false);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
 		textField_4.setBounds(121, 77, 93, 33);
 		panel_3.add(textField_4);
+		textField_4.setEditable(false);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
 		textField_5.setBounds(408, 33, 104, 33);
 		panel_3.add(textField_5);
+		textField_5.setEditable(false);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		textField_6.setBounds(224, 77, 93, 33);
 		panel_3.add(textField_6);
+		textField_6.setEditable(false);
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
 		textField_7.setBounds(121, 122, 391, 33);
 		panel_3.add(textField_7);
+		textField_7.setEditable(false);
 		
 		JButton btnConfirm = new JButton("Update");
 		btnConfirm.setBounds(10, 632, 150, 39);

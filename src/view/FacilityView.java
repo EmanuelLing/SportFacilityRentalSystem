@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,21 +14,6 @@ import model.SportFacility;
 public class FacilityView {
 
 	private JFrame frmFacility;
-	private JPanel panel;
-	private JLabel lblNewLabel;
-	private JPanel panel_1;
-	private JTextField textField;
-	private JLabel lblNewLabel_1;
-	private JTextField textField_1;
-	private JLabel lblNewLabel_1_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JLabel lblNewLabel_1_2_1;
-	private JTextField textField_4;
-	private JLabel lblNewLabel_1_2;
-	private JLabel lblNewLabel_1_3;
-	private JButton btnNewButton;
-	private JButton btnUpdate;
 	private JTextField facilityNameTextField;
 	private JTextField locationTextField;
 	private JTextField capacityTextField;

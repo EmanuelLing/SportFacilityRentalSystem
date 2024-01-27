@@ -14,21 +14,6 @@ import java.awt.Color;
 public class FacilityAddView {
 
 	private JFrame frmFacilityAddPage;
-	private JPanel panel;
-	private JLabel lblNewLabel;
-	private JPanel panel_1;
-	private JTextField textField;
-	private JLabel lblNewLabel_1;
-	private JTextField textField_1;
-	private JLabel lblNewLabel_1_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JLabel lblNewLabel_1_2_1;
-	private JTextField textField_4;
-	private JLabel lblNewLabel_1_2;
-	private JLabel lblNewLabel_1_3;
-	private JButton btnNewButton;
-	private JButton btnUpdate;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;

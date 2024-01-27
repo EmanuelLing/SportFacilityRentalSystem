@@ -15,13 +15,14 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
-import java.awt.SystemColor;
-import javax.swing.SwingConstants;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 public class LoginView extends JFrame {
  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmLoginpage;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
@@ -47,6 +48,7 @@ public class LoginView extends JFrame {
 	 */
 	public LoginView() {
 		initialize();
+		frmLoginpage.setVisible(true);
 	}
 
 	/**
@@ -73,7 +75,6 @@ public class LoginView extends JFrame {
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setLayout(null);
-		
 		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setForeground(Color.DARK_GRAY);
@@ -144,9 +145,15 @@ public class LoginView extends JFrame {
 		lblPassword.setBounds(48, 182, 130, 40);
 		panel.add(lblPassword);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(471, -185, 979, 760);
-		panel_2.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\yasri\\OneDrive - Universiti Teknikal Malaysia Melaka_B032220029\\OneDrive - Universiti Teknikal Malaysia Melaka\\Degree\\23-24\\BITP 3113 OOP\\project\\img\\0299ffa30f08a08f64564258baea3032.jpg"));
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("img/8e6089cc83644af9bba70e8aca1c6e8a.jpg"));
+		lblNewLabel_2.setBounds(10, 10, 271, 319);
+		panel_1.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("img/16e57efc9d56c29d4ab7a651bd082efd.jpg"));
+		lblNewLabel_1.setBounds(392, -14, 563, 395);
+		panel_2.add(lblNewLabel_1);
 	}
 }
